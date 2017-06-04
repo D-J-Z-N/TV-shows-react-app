@@ -17,6 +17,11 @@
 
 /*MAIN CSS*/
 
+* {
+  -webkit-margin-before:0;
+  -webkit-margin-after:0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -30,16 +35,20 @@ body {
   width: 720px;
 	max-width: 100%;
 	margin: 0 auto;
+  padding: 4rem 0;
 }
 
 h1 {
   font-family: 'open_sansextrabold', Helvetica, sans-serif;
-  font-size: 3rem;
+  font-size: 4rem;
   color: #3fa78b;
+  letter-spacing: -1px;
 }
 
 h2 {
   font-family: 'open_sansbold';
+  font-size: 2rem;
+  text-transform: uppercase;
   display: inline;
   background-color: #3fa78b;
   color: #fff;
@@ -54,7 +63,15 @@ a:hover {
   color: #607d8b;
 }
 
+ul {
+  padding: 4rem 0 0 0;
+}
+
 li {
   list-style-type: none;
   line-height: 2rem;
+}
+
+p {
+  padding: 4rem 0 0 0;
 }
