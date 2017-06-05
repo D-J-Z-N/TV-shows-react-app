@@ -40,7 +40,7 @@ body {
 
 h1 {
   font-family: 'open_sansextrabold', Helvetica, sans-serif;
-  font-size: 4rem;
+  font-size: 6rem;
   color: #7eceb9;
   letter-spacing: -1px;
 }
@@ -66,12 +66,13 @@ a:hover {
 }
 
 ul {
-  padding: 4rem 0 0 0;
+  padding: 4rem 0 0 1rem;
 }
 
 li {
   list-style-type: none;
   line-height: 2rem;
+  font-family: 'open_sansbold';
 }
 
 p {
