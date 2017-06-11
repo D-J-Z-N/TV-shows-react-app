@@ -26,7 +26,7 @@ function App() {
     <div className="container">
       <Router>
         <Switch>
-         <Route path="/home" render={(props) => (
+         <Route exact path="/" render={(props) => (
            <ItemList {...props} items={TVSHOWS} />)}/>
            <Route path='/items/:id' render={({ match }) => {
              const item = TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
