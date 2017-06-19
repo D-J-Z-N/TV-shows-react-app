@@ -2,42 +2,48 @@ import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import ItemList from './List'
 import ItemView from './Item'
+import request from 'superagent';
 
-const TVSHOWS = [
-  {
-    id: 1,
-    title: "Vikings",
-    description: "The world of the Vikings is brought to life through the journey of Ragnar Lothbrok, the first Viking to emerge from Norse legend and onto the pages of history - a man on the edge of myth."
-  },
-  {
-    id: 2,
-    title: "Ripper Street",
-    description: "The streets of Whitechapel are the haunt of Detective Inspector Edmund Reid and his team of officers, who aim to maintain law and order in a place once terrorized by Jack the Ripper."
-  },
-  {
-    id: 3,
-    title: "Peaky Blinders",
-    description: "A gangster family epic set in 1919 Birmingham, England and centered on a gang and their fierce boss Tommy Shelby, who means to move up in the world."
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      TVSHOWS: []
+    };
   }
-];
-
-function App() {
-  return (
-    <div className="container">
-      <Router>
-        <Switch>
-         <Route exact path="/" render={(props) => (
-           <ItemList {...props} items={TVSHOWS} />)}/>
-           <Route path='/items/:id' render={({ match }) => {
-             const item = TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
-             if (item) {
-               return <ItemView match={match} {...item} />;
-             }
-             return (<div>This item does not exist! </div>);
-           }} />
-        </Switch>
-      </Router>
-    </div>
-  )
+  componentDidMount() {
+    request
+      .get('https://api.themoviedb.org/3/discover/tv?api_key=08ccdedbdad6b837eb8537ad2513166c')
+      .accept('json')
+      .end(function(err, res) {
+        if (err) {
+          alert("Error: " + err);
+        } else {
+          console.log(res.body.results);
+          this.setState({ TVSHOWS: res.body.results });
+        }
+      }.bind(this));
+  }
+  render() {
+    return (
+      <div className="container">
+        <Router>
+          <Switch>
+           <Route exact path="/" render={(props) => (
+             <ItemList {...props} items={this.state.TVSHOWS} />)}/>
+             <Route path='/items/:id' render={({ match }) => {
+               const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
+               if (item) {
+                 return <ItemView match={match} {...item} />;
+               }
+               return (<div>This item does not exist! </div>);
+             }} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
 }
+
 export default App;
