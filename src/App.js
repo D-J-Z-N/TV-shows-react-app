@@ -32,7 +32,7 @@ class App extends React.Component {
           <Switch>
            <Route exact path="/" render={(props) => (
              <ItemList {...props} items={this.state.TVSHOWS} />)}/>
-             <Route path='/items/:id' render={({ match }) => {
+             <Route path='/:id' render={({ match }) => {
                const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
                if (item) {
                  return <ItemView match={match} {...item} />;
