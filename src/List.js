@@ -3,21 +3,18 @@ import {Link} from 'react-router-dom'
 
 function ItemList(props) {
   const items = props.items;
-  const listItems = items.map((item) =>
-    <li key={item.id}>
-      <Link to={`/items/${item.id}`}>{item.title}</Link>
-    </li>
+  const listItems = items
+    .filter((item) => `${item.original_name}`.toUpperCase().indexOf(this.props.searchTerm.toUpperCase()) >= 0)
+    .map((item) =>
+      <li key={item.id}>
+        <Link to={`/${item.id}`}>{item.original_name}</Link>
+      </li>
   );
   return (
     <div className="list">
-      <h1>TV Shows</h1>
       <ul>{listItems}</ul>
     </div>
   );
 }
 
 export default ItemList;
-
-
-
-//<Link to={`/${item.id}`}>{item.title}</Link>

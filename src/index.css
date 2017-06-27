@@ -15,6 +15,11 @@
   src: local('OpenSans-ExtraBold-webfont'), url('./fonts/OpenSans-ExtraBold-webfont.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'open_sansregular';
+  src: local('OpenSans-Regular-webfont'), url('./fonts/OpenSans-Regular-webfont.woff') format('woff');
+}
+
 /*MAIN CSS*/
 
 * {
@@ -43,6 +48,7 @@ h1 {
   font-size: 6rem;
   color: #7eceb9;
   letter-spacing: -1px;
+  padding: 0 0 4rem 0;
 }
 
 h2 {
@@ -66,7 +72,7 @@ a:hover {
 }
 
 ul {
-  padding: 4rem 0 0 1rem;
+  padding: 0;
 }
 
 li {
@@ -77,4 +83,37 @@ li {
 
 p {
   padding: 4rem 0 0 0;
+}
+
+.single-item {
+  padding-top: 2rem;
+}
+
+.search > input {
+  border-color: #7eceb9;
+  padding: 1rem;
+  outline: none;
+  border-style: solid;
+  color: #607d8b;
+  font-family: 'open_sansregular';
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #607d8b;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: #607d8b;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: #607d8b;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #607d8b;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: #607d8b;
 }
