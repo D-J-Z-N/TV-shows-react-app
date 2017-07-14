@@ -60,6 +60,7 @@ h2 {
   color: #fff;
   padding: 0.2rem 0.6rem;
   letter-spacing: 0.6rem;
+  line-height: 3rem;
 }
 
 a {
@@ -91,13 +92,14 @@ p {
 
 .search > input {
   border-color: #7eceb9;
-  padding: 1rem;
+  padding: 0.6rem;
   outline: none;
   border-style: solid;
   color: #607d8b;
   font-family: 'open_sansregular';
   font-size: 1rem;
   margin-bottom: 1rem;
+  width: 60%;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -116,4 +118,15 @@ p {
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
    color: #607d8b;
+}
+
+/*.spinner {
+  background: #607d8b;
+}*/
+
+.react-progress-bar-percent {
+  height: 2px;
+  background: #7eceb9;
+  box-shadow: 0 0 0 0;
+  transition: all 200ms ease;
 }
