@@ -3,8 +3,13 @@ import {Link} from 'react-router-dom'
 
 function ItemList(props) {
   const items = props.items;
+  const indexOfLastItem = props.currentPage * props.itemsPerPage;
+  const indexOfFirstItem = props.indexOfLastItem - props.itemsPerPage;
+
   const listItems = items
-    .filter((item) => `${item.original_name}`.toUpperCase().indexOf(props.searchTerm.toUpperCase()) >= 0)
+    .filter((item) => `${item.original_name}`.toUpperCase().indexOf(props.searchTerm.toUpperCase()) >= 0);
+  const currentItems = listItems
+    .slice(indexOfFirstItem, indexOfLastItem)
     .map((item) =>
       <li key={item.id}>
         <Link to={`/${item.id}`}>{item.original_name}</Link>
@@ -12,19 +17,9 @@ function ItemList(props) {
   );
   return (
     <div className="list">
-      <ul>{listItems}</ul>
+      <ul>{currentItems}</ul>
     </div>
   );
 }
 
 export default ItemList;
-
-
-// // Logic for displaying current items
-// const indexOfLastItem = currentPage * itemsPerPage;
-// const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-// const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-//
-// const renderItems = currentItems.map((item, index) => {
-//   return <li key={index}>{item}</li>;
-// });

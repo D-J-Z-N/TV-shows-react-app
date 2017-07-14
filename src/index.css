@@ -130,3 +130,12 @@ p {
   box-shadow: 0 0 0 0;
   transition: all 200ms ease;
 }
+
+.pagination > li {
+  display: inline;
+  padding: 1rem;
+}
+
+.pagination > li:active {
+  color: #7eceb9;
+}

@@ -48,27 +48,40 @@ class App extends React.Component {
       }.bind(this));
   }
 
-
   render() {
     return (
       <div className="container">
-
         <h1>TV Shows</h1>
         <Router>
           <div>
-           <Route exact path="/" render={(props) => (
+           <Route exact path="/:number" render={(props) => (
+             //use currentPage??
              <SearchBar
                searchTerm={this.state.searchTerm}
                onFilterTextInput={this.handleFilterTextInput}
              />
            )}/>
-           <Route exact path="/" render={(props) => (
-             <ItemList {...props}
+           <Route exact path="/:number" render={({match}) => {
+             //use currentPage??
+             const page = this.state.pageNumbers.find((page) => page.number === parseInt(match.params.number, 10));
+             return (
+               <ItemList match={match} {...page}
                items={this.state.TVSHOWS}
                searchTerm={this.state.searchTerm}
-             />)}/>
-             <Route exact path="/" render={(props) => (
-               <Pagination items={this.state.TVSHOWS} currentPage={this.state.currentPage} itemsPerPage={this.state.itemsPerPage}/>
+               currentPage={this.state.currentPage}
+               itemsPerPage={this.state.itemsPerPage}
+             />);}}/>
+           {/* /*
+           //{<Route exact path="/" render={(props) => (
+             //<ItemList {...props}
+              // items={this.state.TVSHOWS}
+              // searchTerm={this.state.searchTerm}
+              // currentPage={this.state.currentPage}
+              // itemsPerPage={this.state.itemsPerPage}
+            // />)}/> }*/}
+             <Route exact path="/:number" render={(props) => (
+               //problems with passing tvshows to the list and then to pagination
+               <Pagination items={this.state.TVSHOWS} currentPage={this.state.currentPage} itemsPerPage={this.state.itemsPerPage} onClick={this.handleClick}/>
              )}/>
              <Route path='/:id' render={({ match }) => {
                const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
@@ -85,5 +98,4 @@ class App extends React.Component {
     )
   }
 }
-
 export default App;
