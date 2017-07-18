@@ -1,10 +1,10 @@
 import React from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import ItemList from './List'
+//import ItemList from './List'
 import ItemView from './Item'
 import request from 'superagent';
 import SearchBar from './Search';
-import Pagination from './Pagination';
+import PaginatedList from './Pagination';
 require('react-progress-bar-plus/lib/progress-bar.css');
 
 const ProgressBar = require('react-progress-bar-plus');
@@ -24,13 +24,14 @@ class App extends React.Component {
 
   handleFilterTextInput(searchTerm) {
     this.setState({
-      searchTerm: searchTerm
+      searchTerm: searchTerm,
     });
   }
 
   handleClick(event) {
     this.setState({
-      currentPage: Number(event.target.id)
+      //issue here, state is not being updated
+      currentPage: Number(event.target.id),
     });
   }
 
@@ -43,7 +44,6 @@ class App extends React.Component {
           alert("Ooops... Something went wrong. Check error code: " + err);
         } else {
           this.setState({ TVSHOWS: res.body.results });
-          console.log(res.body.results);
         }
       }.bind(this));
   }
@@ -54,44 +54,35 @@ class App extends React.Component {
         <h1>TV Shows</h1>
         <Router>
           <div>
-           <Route exact path="/:number" render={(props) => (
-             //use currentPage??
+           <Route exact path="/" render={(props) => (
              <SearchBar
                searchTerm={this.state.searchTerm}
                onFilterTextInput={this.handleFilterTextInput}
              />
            )}/>
-           <Route exact path="/:number" render={({match}) => {
-             //use currentPage??
-             const page = this.state.pageNumbers.find((page) => page.number === parseInt(match.params.number, 10));
+
+           <Route exact path="/" render={(props) => (
+            <PaginatedList
+              items={this.state.TVSHOWS}
+              searchTerm={this.state.searchTerm}
+              currentPage={this.state.currentPage}
+              itemsPerPage={this.state.itemsPerPage}
+              onClick={this.handleClick}/>
+          )}/>
+
+           <Route exact path="/:id" render={({ match }) => {
+             const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
+             if (item) {
+               return <ItemView match={match} {...item} />;
+             }
              return (
-               <ItemList match={match} {...page}
-               items={this.state.TVSHOWS}
-               searchTerm={this.state.searchTerm}
-               currentPage={this.state.currentPage}
-               itemsPerPage={this.state.itemsPerPage}
-             />);}}/>
-           {/* /*
-           //{<Route exact path="/" render={(props) => (
-             //<ItemList {...props}
-              // items={this.state.TVSHOWS}
-              // searchTerm={this.state.searchTerm}
-              // currentPage={this.state.currentPage}
-              // itemsPerPage={this.state.itemsPerPage}
-            // />)}/> }*/}
-             <Route exact path="/:number" render={(props) => (
-               //problems with passing tvshows to the list and then to pagination
-               <Pagination items={this.state.TVSHOWS} currentPage={this.state.currentPage} itemsPerPage={this.state.itemsPerPage} onClick={this.handleClick}/>
-             )}/>
-             <Route path='/:id' render={({ match }) => {
-               const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
-               if (item) {
-                 return <ItemView match={match} {...item} />;
-               }
-               return (
-                 <ProgressBar percent={5} autoIncrement={true} intervalTime={(Math.random() * 1000)} spinner={false} className="spinner"/>
-               );
-             }} />
+               <ProgressBar
+                 percent={5}
+                 autoIncrement={true}
+                 intervalTime={(Math.random() * 1000)}
+                 spinner={false} className="spinner"/>
+             );
+           }}/>
           </div>
         </Router>
       </div>
@@ -99,3 +90,12 @@ class App extends React.Component {
   }
 }
 export default App;
+
+//<Route exact path="/:number" render={({ match }) => {
+//<PaginatedList
+//items={this.state.TVSHOWS}
+//searchTerm={this.state.searchTerm}
+//currentPage={this.state.currentPage}
+//itemsPerPage={this.state.itemsPerPage}
+//onClick={this.handleClick}
+//match = {match}/>}/>

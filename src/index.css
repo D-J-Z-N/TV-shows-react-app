@@ -131,9 +131,13 @@ p {
   transition: all 200ms ease;
 }
 
+.pagination {
+  padding: 3rem  0 ;
+}
+
 .pagination > li {
   display: inline;
-  padding: 1rem;
+  padding: 0 1rem 0 0;
 }
 
 .pagination > li:active {
