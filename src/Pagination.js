@@ -7,9 +7,9 @@ class PaginatedList extends React.Component {
    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
-    this.props.onPageClick(Number(event.target.id));
-    console.log(event.target.id);
+  handleClick(number) {
+    this.props.onPageClick(number);
+    console.log(number);
   }
 
   render() {
@@ -30,14 +30,14 @@ class PaginatedList extends React.Component {
     for (let i = 1; i <= Math.ceil(totalItems.length / this.props.itemsPerPage); i++) {
       pageNumbers.push(i);
     }
-
+console.log(this.props);
     const renderPageNumbers = pageNumbers.map(number => {
-      console.log(this.props);
+
       return (
         <li
           key={number}
           id={number}
-          onClick={this.handleClick}
+          onClick={event => this.handleClick(number)}
         >
           <Link to={`/${number}`}>{number}</Link>
         </li>

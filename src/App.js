@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   render() {
-    
+
     return (
       <div className="container">
         <h1>TV Shows</h1>
@@ -74,7 +74,6 @@ class App extends React.Component {
               currentPage={this.state.currentPage}
               itemsPerPage={this.state.itemsPerPage}
               onPageClick={this.handleCurrentPageChange}/>
-              //onClick={this.handleClick}/>
           )}/>
 
            <Route exact path="/:id" render={({ match }) => {
