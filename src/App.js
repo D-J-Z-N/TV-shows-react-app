@@ -19,7 +19,8 @@ class App extends React.Component {
       itemsPerPage: 10
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
+    this.handleCurrentPageChange = this.handleCurrentPageChange.bind(this);
   }
 
   handleFilterTextInput(searchTerm) {
@@ -28,12 +29,17 @@ class App extends React.Component {
     });
   }
 
-  handleClick(event) {
+  handleCurrentPageChange(currentPage) {
     this.setState({
-      //issue here, state is not being updated
-      currentPage: Number(event.target.id),
+      currentPage: currentPage,
     });
   }
+
+  // handleClick(event) {
+  //   this.setState({
+  //     currentPage: Number(event.target.id),
+  //   });
+  // }
 
   componentWillMount() {
     request
@@ -49,6 +55,7 @@ class App extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="container">
         <h1>TV Shows</h1>
@@ -57,8 +64,7 @@ class App extends React.Component {
            <Route exact path="/" render={(props) => (
              <SearchBar
                searchTerm={this.state.searchTerm}
-               onFilterTextInput={this.handleFilterTextInput}
-             />
+               onFilterTextInput={this.handleFilterTextInput}/>
            )}/>
 
            <Route exact path="/" render={(props) => (
@@ -67,7 +73,8 @@ class App extends React.Component {
               searchTerm={this.state.searchTerm}
               currentPage={this.state.currentPage}
               itemsPerPage={this.state.itemsPerPage}
-              onClick={this.handleClick}/>
+              onPageClick={this.handleCurrentPageChange}/>
+              //onClick={this.handleClick}/>
           )}/>
 
            <Route exact path="/:id" render={({ match }) => {
