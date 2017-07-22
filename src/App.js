@@ -19,7 +19,6 @@ class App extends React.Component {
       itemsPerPage: 10
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
-    //this.handleClick = this.handleClick.bind(this);
     this.handleCurrentPageChange = this.handleCurrentPageChange.bind(this);
   }
 
@@ -34,12 +33,6 @@ class App extends React.Component {
       currentPage: currentPage,
     });
   }
-
-  // handleClick(event) {
-  //   this.setState({
-  //     currentPage: Number(event.target.id),
-  //   });
-  // }
 
   componentWillMount() {
     request
@@ -61,13 +54,13 @@ class App extends React.Component {
         <h1>TV Shows</h1>
         <Router>
           <div>
-           <Route exact path="/" render={(props) => (
+           <Route exact path="/:number?" render={(props) => (
              <SearchBar
                searchTerm={this.state.searchTerm}
                onFilterTextInput={this.handleFilterTextInput}/>
            )}/>
 
-           <Route exact path="/" render={(props) => (
+           <Route exact path="/:number?" render={(props) => (
             <PaginatedList
               items={this.state.TVSHOWS}
               searchTerm={this.state.searchTerm}
@@ -76,7 +69,7 @@ class App extends React.Component {
               onPageClick={this.handleCurrentPageChange}/>
           )}/>
 
-           <Route exact path="/:id" render={({ match }) => {
+           <Route exact path="/item/:id" render={({ match }) => {
              const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
              if (item) {
                return <ItemView match={match} {...item} />;
@@ -96,12 +89,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-//<Route exact path="/:number" render={({ match }) => {
-//<PaginatedList
-//items={this.state.TVSHOWS}
-//searchTerm={this.state.searchTerm}
-//currentPage={this.state.currentPage}
-//itemsPerPage={this.state.itemsPerPage}
-//onClick={this.handleClick}
-//match = {match}/>}/>
