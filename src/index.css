@@ -82,6 +82,14 @@ li {
   font-family: 'open_sansbold';
 }
 
+li :active {
+  color: #7eceb9;
+}
+
+.active {
+  color: #7eceb9;
+}
+
 p {
   padding: 4rem 0 0 0;
 }
@@ -120,10 +128,6 @@ p {
    color: #607d8b;
 }
 
-/*.spinner {
-  background: #607d8b;
-}*/
-
 .react-progress-bar-percent {
   height: 2px;
   background: #7eceb9;
@@ -140,6 +144,6 @@ p {
   padding: 0 1rem 0 0;
 }
 
-.pagination > li:active {
+.pagination > li :active {
   color: #7eceb9;
 }
