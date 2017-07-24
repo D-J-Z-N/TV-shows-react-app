@@ -4,13 +4,13 @@ import {Link} from 'react-router-dom'
 class PaginatedList extends React.Component {
   constructor(props) {
    super(props);
-   this.handleClick = this.handleClick.bind(this);
+   //this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(number) {
-    this.props.onPageClick(number);
-    console.log(number);
-  }
+  // handleClick(number) {
+  //   this.props.onPageClick(number);
+  //   console.log(number);
+  // }
 
   render() {
     const items = this.props.items;
@@ -33,11 +33,13 @@ class PaginatedList extends React.Component {
     console.log(this.props);
 
     const renderPageNumbers = pageNumbers.map(number => {
+      console.log(number);
       return (
         <li
           key={number}
           id={number}
-          onClick={event => this.handleClick(number)}
+          //onClick={event => this.handleClick(number)}
+          className={Number(this.props.currentPage) === number ? 'active': ''}
         >
           <Link to={`/${number}`}>{number}</Link>
         </li>

@@ -86,8 +86,9 @@ li :active {
   color: #7eceb9;
 }
 
-.active {
+.active > a {
   color: #7eceb9;
+  cursor: none;
 }
 
 p {
@@ -136,14 +137,10 @@ p {
 }
 
 .pagination {
-  padding: 3rem  0 ;
+  padding: 3rem 0 0 0 ;
 }
 
 .pagination > li {
   display: inline;
   padding: 0 1rem 0 0;
-}
-
-.pagination > li :active {
-  color: #7eceb9;
 }

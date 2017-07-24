@@ -16,10 +16,11 @@ class App extends React.Component {
       TVSHOWS: [],
       searchTerm: '',
       currentPage: 1,
-      itemsPerPage: 10
+      itemsPerPage: 10,
+      className: ''
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
-    this.handleCurrentPageChange = this.handleCurrentPageChange.bind(this);
+    //this.handleCurrentPageChange = this.handleCurrentPageChange.bind(this);
   }
 
   handleFilterTextInput(searchTerm) {
@@ -28,11 +29,11 @@ class App extends React.Component {
     });
   }
 
-  handleCurrentPageChange(currentPage) {
-    this.setState({
-      currentPage: currentPage,
-    });
-  }
+  // handleCurrentPageChange(currentPage) {
+  //   this.setState({
+  //     currentPage: currentPage,
+  //   });
+  // }
 
   componentWillMount() {
     request
@@ -60,14 +61,14 @@ class App extends React.Component {
                onFilterTextInput={this.handleFilterTextInput}/>
            )}/>
 
-           <Route exact path="/:number?" render={(props) => (
-            <PaginatedList
-              items={this.state.TVSHOWS}
-              searchTerm={this.state.searchTerm}
-              currentPage={this.state.currentPage}
-              itemsPerPage={this.state.itemsPerPage}
-              onPageClick={this.handleCurrentPageChange}/>
-          )}/>
+           <Route exact path="/:number?" render={({ match }) => (
+             <PaginatedList
+               items={this.state.TVSHOWS}
+               searchTerm={this.state.searchTerm}
+               currentPage={match.params.number ? match.params.number : this.state.currentPage}
+               itemsPerPage={this.state.itemsPerPage}
+               //onPageClick={this.handleCurrentPageChange}
+           />)}/>
 
            <Route exact path="/item/:id" render={({ match }) => {
              const item = this.state.TVSHOWS.find((item) => item.id === parseInt(match.params.id, 10));
@@ -89,3 +90,12 @@ class App extends React.Component {
   }
 }
 export default App;
+
+
+/* <Route exact path="/:number?" render={(props) => (
+ <PaginatedList
+   items={this.state.TVSHOWS}
+   searchTerm={this.state.searchTerm}
+   currentPage={this.state.currentPage}
+   itemsPerPage={this.state.itemsPerPage}
+)}/> */
