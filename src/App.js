@@ -1,7 +1,6 @@
-import React from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-//import ItemList from './List'
-import ItemView from './Item'
+import React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import ItemView from './Item';
 import request from 'superagent';
 import SearchBar from './Search';
 import PaginatedList from './Pagination';
@@ -15,12 +14,10 @@ class App extends React.Component {
     this.state = {
       TVSHOWS: [],
       searchTerm: '',
-      currentPage: 1,
       itemsPerPage: 10,
       className: ''
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
-    //this.handleCurrentPageChange = this.handleCurrentPageChange.bind(this);
   }
 
   handleFilterTextInput(searchTerm) {
@@ -28,12 +25,6 @@ class App extends React.Component {
       searchTerm: searchTerm,
     });
   }
-
-  // handleCurrentPageChange(currentPage) {
-  //   this.setState({
-  //     currentPage: currentPage,
-  //   });
-  // }
 
   componentWillMount() {
     request
@@ -65,9 +56,8 @@ class App extends React.Component {
              <PaginatedList
                items={this.state.TVSHOWS}
                searchTerm={this.state.searchTerm}
-               currentPage={match.params.number ? match.params.number : this.state.currentPage}
+               currentPage={match.params.number ? match.params.number : 1}
                itemsPerPage={this.state.itemsPerPage}
-               //onPageClick={this.handleCurrentPageChange}
            />)}/>
 
            <Route exact path="/item/:id" render={({ match }) => {
@@ -90,12 +80,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-
-/* <Route exact path="/:number?" render={(props) => (
- <PaginatedList
-   items={this.state.TVSHOWS}
-   searchTerm={this.state.searchTerm}
-   currentPage={this.state.currentPage}
-   itemsPerPage={this.state.itemsPerPage}
-)}/> */
